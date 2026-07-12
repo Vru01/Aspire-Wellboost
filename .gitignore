@@ -1,0 +1,47 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# production
+/dist
+
+# misc
+.DS_Store
+.env
+.env.*
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# local env files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# generated
+coverage
+
+# Vite
+.vite
+
+# macOS
+.AppleDouble
+.LSOverride
+
+# build
+build
+
+# dependency directories
+/coverage/
+
+# lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
