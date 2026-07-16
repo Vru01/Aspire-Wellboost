@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Leaf } from 'lucide-react';
 import { api } from '../../utils/api';
 
 export default function Auth({ mode = 'login', onAuthSuccess }) {
@@ -81,9 +80,11 @@ export default function Auth({ mode = 'login', onAuthSuccess }) {
       <div className="mx-auto flex max-w-5xl flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm lg:flex-row">
         <div className="bg-gradient-to-br from-[#00D9A0] to-[#00A87D] p-8 text-white lg:w-2/5">
           <div className="flex items-center gap-2">
-            <div className="rounded-xl bg-white/20 p-2">
-              <Leaf size={20} />
-            </div>
+            <img
+              src="/logo.jpeg"
+              alt="Aspire Wellboost logo"
+              className="h-10 w-10 rounded-full object-cover ring-2 ring-white/20"
+            />
             <span className="text-lg font-black">Aspire Wellboost</span>
           </div>
           <h1 className="mt-8 text-3xl font-black leading-tight">

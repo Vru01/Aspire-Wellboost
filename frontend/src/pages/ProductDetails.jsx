@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { 
   ArrowLeft, ShoppingBag, ShieldCheck, Heart,
-  Info, Check, CreditCard, Maximize2, X,
+  Check, CreditCard, Maximize2, X,
   Activity, Sparkles, Smile, ShieldAlert, Star, ChevronDown
 } from 'lucide-react';
 import { api } from '../../utils/api'; 
@@ -26,6 +26,11 @@ export default function ProductDetails({ userId, triggerCartRefresh }) {
   const product = getCombinedProductData({ slug }, EXTENDED_PRODUCT_DETAILS);
   const displayPrice = backendPrice ?? product.price;
   const displayDiscountPrice = backendDiscountPrice ?? product.discountPrice;
+
+  // 🟢 FIX 1: Instantly reset scroll view back to the top when this page is loaded
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [slug]);
 
   useEffect(() => {
     const loadPrice = async () => {
@@ -64,7 +69,6 @@ export default function ProductDetails({ userId, triggerCartRefresh }) {
     if (!userId) return alert("Please log in to add items to your cart.");
     setLoading(true);
     try {
-      // 🟢 Safe extraction parameter handles for both flat ID formats and session states
       const targetUserId = typeof userId === 'object' ? (userId._id || userId.id) : userId;
       const targetProductId = backendProductId || product._id || product.id;
 
@@ -147,10 +151,11 @@ export default function ProductDetails({ userId, triggerCartRefresh }) {
         </div>
 
         {/* Master Content Platform Split */}
+        {/* 🟢 FIX 2: Removed "order-2" class to keep image panel on TOP for mobile layout, ordering naturally below */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start bg-white p-6 sm:p-12 rounded-3xl shadow-sm border border-slate-200/60">
           
           {/* IMAGE WORK PANEL CONTAINER */}
-          <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24 order-2 lg:order-none">
+          <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-24">
             <div 
               onClick={() => setIsLightboxOpen(true)}
               className="relative aspect-square bg-slate-50 rounded-2xl border border-slate-200 p-6 flex items-center justify-center overflow-hidden cursor-zoom-in group transition-all duration-300 hover:shadow-md"
@@ -180,8 +185,8 @@ export default function ProductDetails({ userId, triggerCartRefresh }) {
             </div>
           </div>
 
-          {/* DYNAMIC VERTICAL STACK DECK (NO TABS) */}
-          <div className="lg:col-span-7 space-y-10 order-1 lg:order-none">
+          {/* DYNAMIC VERTICAL STACK DECK */}
+          <div className="lg:col-span-7 space-y-10">
             
             {/* Title Section */}
             <div className="space-y-3">
@@ -208,8 +213,8 @@ export default function ProductDetails({ userId, triggerCartRefresh }) {
             {/* Pricing Section Container */}
             <div className="bg-slate-50 border border-slate-200 p-6 rounded-2xl shadow-sm">
               <div className="flex items-baseline gap-4">
-                <span className="text-4xl sm:text-5xl font-black text-[#0B1F1A] tracking-tight">₹{product.discountPrice || product.price}</span>
-                {product.discountPrice && <span className="text-xl text-slate-400 line-through">₹{product.price}</span>}
+                <span className="text-4xl sm:text-5xl font-black text-[#0B1F1A] tracking-tight">₹{displayDiscountPrice || displayPrice}</span>
+                {displayDiscountPrice && <span className="text-xl text-slate-400 line-through">₹displayPrice</span>}
                 {discountPercentage > 0 && (
                   <span className="text-xs sm:text-sm font-black bg-emerald-100 border border-emerald-200 text-emerald-800 px-3 py-1 rounded">
                     Save {discountPercentage}% Now

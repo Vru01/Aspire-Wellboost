@@ -39,7 +39,7 @@ export default function Footer() {
           <div className="md:col-span-5 space-y-6">
             <div className="flex items-center gap-3">
               <img
-                src="/logo.png"
+                src="/logo.jpeg"
                 alt="Aspire Wellboost"
                 className="w-11 h-11 rounded-full object-cover shadow-lg shadow-cyan-900/40 ring-2 ring-white/10"
               />
@@ -123,7 +123,7 @@ export default function Footer() {
                 color="text-green-500"
                 href="tel:+917387382367"
               >
-                +91 73873 82367
+                +91 91451 26237
               </ContactItem>
               <ContactItem
                 icon={<Mail className="h-4 w-4" />}
@@ -136,7 +136,7 @@ export default function Footer() {
 
             {/* WhatsApp CTA */}
             <a
-              href="https://wa.me/917387382367"
+              href="https://wa.me/919145126237"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 flex items-center gap-2.5 bg-green-500/10 border border-green-500/20 hover:border-green-500/50 hover:bg-green-500/15 text-green-400 text-sm font-medium px-4 py-3 rounded-xl transition-all duration-300 group w-fit"

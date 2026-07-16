@@ -30,7 +30,6 @@ export default function Home({ searchFilter = '', userId, triggerCartRefresh }) 
     document.getElementById('formulation-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Live filter computation based on Navbar input query strings
   const filteredProducts = liveProducts.filter(prod => {
     const combined = getCombinedProductData(prod, EXTENDED_PRODUCT_DETAILS);
     return combined?.name?.toLowerCase().includes(searchFilter.toLowerCase()) ||
@@ -40,7 +39,6 @@ export default function Home({ searchFilter = '', userId, triggerCartRefresh }) 
   return (
     <div className="bg-white text-[#0B1F1A] min-h-screen font-sans scroll-smooth overflow-x-hidden">
 
-      {/* Local keyframes for the signature motion language */}
       <style>{`
         @keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes orbitSpinReverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
@@ -54,56 +52,85 @@ export default function Home({ searchFilter = '', userId, triggerCartRefresh }) 
         .pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
       `}</style>
 
-      {/* Hero Header Space */}
-      <header className="relative py-24 sm:py-32 px-6 overflow-hidden bg-gradient-to-b from-[#F1FFF9] via-white to-white text-center border-b border-[#00D9A0]/10">
-
+      {/* 🟢 REFACTORED HERO HEADER: Side-by-Side Layout on Desktop, Compact Stack on Mobile */}
+      <header className="relative min-h-[70vh] py-16 lg:py-24 px-6 md:px-12 overflow-hidden bg-gradient-to-b from-[#F1FFF9] via-white to-white border-b border-[#00D9A0]/10 flex items-center justify-center">
+        
+        {/* Soft background floating gradient blobs */}
         <div className="absolute top-10 left-1/4 w-72 h-72 bg-[#00D9A0]/20 blur-[90px] rounded-full pointer-events-none blob-float" />
         <div className="absolute top-24 right-1/4 w-64 h-64 bg-[#FF5C8A]/15 blur-[90px] rounded-full pointer-events-none blob-float" style={{ animationDelay: '2.5s' }} />
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden sm:block">
-          <div className="w-[520px] h-[520px] rounded-full border border-[#00D9A0]/20 orbit-ring-slow relative">
-            <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#00D9A0]" />
-          </div>
-          <div className="absolute inset-0 m-auto w-[380px] h-[380px] rounded-full border border-dashed border-[#FF5C8A]/25 orbit-ring-fast">
-            <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#FF5C8A]" />
-          </div>
-        </div>
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-20">
+          
+          {/* LEFT COLUMN: Hero Copy & Actions */}
+          <div className="lg:col-span-7 text-center lg:text-left space-y-6 fade-up flex flex-col items-center lg:items-start order-2 lg:order-1">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00D9A0]/30 bg-white text-[#00A87D] text-xs font-bold tracking-wide uppercase shadow-sm shadow-[#00D9A0]/10">
+              <span className="relative flex h-2 w-2">
+                <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-[#00D9A0]" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D9A0]" />
+              </span>
+              Made With Real, Clean Ingredients
+            </div>
 
-        <div className="max-w-3xl mx-auto relative z-10 space-y-6 fade-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00D9A0]/30 bg-white text-[#00A87D] text-xs font-bold tracking-wide uppercase shadow-sm shadow-[#00D9A0]/10">
-            <span className="relative flex h-2 w-2">
-              <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-[#00D9A0]" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00D9A0]" />
-            </span>
-            Made With Real, Clean Ingredients
+            <h1 className="text-4xl md:text-5xl xl:text-6xl font-black tracking-tight text-[#0B1F1A] leading-[1.15] font-serif">
+              Empower Your <br />
+              <span className="bg-gradient-to-r from-[#00D9A0] via-[#00C2C2] to-[#FF5C8A] bg-clip-text text-transparent">
+                Daily Wellness Journey
+              </span>
+            </h1>
+
+            <p className="text-sm md:text-base text-slate-500 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Simple, effective supplements made from real ingredients — no confusing labels, no shortcuts, just products that actually work.
+            </p>
+
+            <div className="flex items-center justify-center lg:justify-start gap-4 pt-2 w-full">
+              <button
+                onClick={scrollToGrid}
+                className="group inline-flex items-center gap-2 bg-[#0B1F1A] text-white px-7 py-3.5 rounded-2xl font-bold text-sm tracking-wide shadow-lg shadow-[#0B1F1A]/20 hover:shadow-xl hover:shadow-[#0B1F1A]/25 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 transition-all duration-300"
+              >
+                Shop Now
+                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <button
+                onClick={scrollToGrid}
+                className="inline-flex items-center gap-2 bg-white text-[#0B1F1A] px-7 py-3.5 rounded-2xl font-bold text-sm tracking-wide border border-slate-200 hover:border-[#00D9A0]/40 hover:bg-[#F1FFF9] active:scale-95 transition-all duration-300"
+              >
+                Learn More
+              </button>
+            </div>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-[#0B1F1A] leading-[1.05] font-serif">
-            Feel Better, <br />
-            <span className="bg-gradient-to-r from-[#00D9A0] via-[#00C2C2] to-[#FF5C8A] bg-clip-text text-transparent">
-              One Day at a Time
-            </span>
-          </h1>
+          {/* RIGHT COLUMN: The Immersive Graphic Component (Massive on Desktop, Compact & Placed Top on Mobile) */}
+          <div className="lg:col-span-5 flex items-center justify-center order-1 lg:order-2">
+            <div className="relative w-64 h-64 md:w-[400px] md:h-[400px] xl:w-[480px] xl:h-[480px] flex items-center justify-center pointer-events-none">
+              
+              {/* Ambient Background Layer Glow */}
+              <div className="absolute w-40 h-40 md:w-64 md:h-64 xl:w-80 xl:h-80 rounded-full bg-gradient-to-tr from-[#00D9A0]/20 to-[#FF5C8A]/10 blur-2xl opacity-80 animate-pulse z-0" />
 
-          <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto leading-relaxed">
-            Simple, effective supplements made from real ingredients — no confusing labels, no shortcuts, just products that actually work.
-          </p>
+              {/* 🟢 THE SCALED HIGH-IMPACT LOGO DESIGN (Big & Crisply Formatted) */}
+              <div className="absolute w-36 h-36 md:w-56 md:h-56 xl:w-72 xl:h-72 rounded-full overflow-hidden border-2 border-[#00D9A0]/25 bg-white shadow-2xl shadow-[#00D9A0]/10 flex items-center justify-center mix-blend-multiply z-10 p-2 transition-transform duration-500 hover:scale-103">
+                <img 
+                  src="/logo.jpeg" 
+                  alt="Aspire Wellboost Logo" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
 
-          <div className="flex items-center justify-center gap-4 pt-2">
-            <button
-              onClick={scrollToGrid}
-              className="group inline-flex items-center gap-2 bg-[#0B1F1A] text-white px-7 py-3.5 rounded-2xl font-bold text-sm tracking-wide shadow-lg shadow-[#0B1F1A]/20 hover:shadow-xl hover:shadow-[#0B1F1A]/25 hover:-translate-y-0.5 active:scale-95 active:translate-y-0 transition-all duration-300"
-            >
-              Shop Now
-              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button
-              onClick={scrollToGrid}
-              className="inline-flex items-center gap-2 bg-white text-[#0B1F1A] px-7 py-3.5 rounded-2xl font-bold text-sm tracking-wide border border-slate-200 hover:border-[#00D9A0]/40 hover:bg-[#F1FFF9] active:scale-95 transition-all duration-300"
-            >
-              Learn More
-            </button>
+              {/* Inner Accent Ripple Ring */}
+              <div className="absolute w-40 h-40 md:w-[240px] md:h-[240px] xl:w-[300px] xl:h-[300px] rounded-full border border-[#00D9A0]/30 z-0 animate-ping opacity-15" style={{ animationDuration: '5s' }} />
+
+              {/* Inner Orbit Ring */}
+              <div className="absolute w-48 h-48 md:w-[320px] md:h-[320px] xl:w-[390px] xl:h-[390px] rounded-full border border-dashed border-[#FF5C8A]/40 orbit-ring-fast z-20">
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-[#FF5C8A]" />
+              </div>
+
+              {/* Outer Orbit Ring */}
+              <div className="absolute w-60 h-60 md:w-[400px] md:h-[400px] xl:w-[480px] xl:h-[480px] rounded-full border border-[#00D9A0]/20 orbit-ring-slow z-20">
+                <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 md:w-3 md:h-3 rounded-full bg-[#00D9A0]" />
+              </div>
+
+            </div>
           </div>
+
         </div>
       </header>
 

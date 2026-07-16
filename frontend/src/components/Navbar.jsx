@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, Heart, Search, Leaf, LogOut } from 'lucide-react';
+import { ShoppingBag, Heart, Search, LogOut } from 'lucide-react';  
 
 export default function Navbar({ 
   cartCount = 0, 
@@ -16,9 +16,11 @@ export default function Navbar({
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-4 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2.5 cursor-pointer group shrink-0">
-          <div className="bg-gradient-to-br from-[#00D9A0] to-[#00A87D] p-2 rounded-xl shadow-md shadow-[#00D9A0]/25 transform group-hover:rotate-12 transition-transform duration-300">
-            <Leaf size={20} className="text-white" />
-          </div>
+          <img
+            src="/logo.jpeg"
+            alt="Aspire Wellboost logo"
+            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-[#00D9A0]/20 shadow-sm"
+          />
           <span className="text-xl sm:text-2xl font-black tracking-tight text-[#0B1F1A] font-serif">
             Aspire Wellboost
           </span>
